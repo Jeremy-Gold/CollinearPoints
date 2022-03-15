@@ -1,3 +1,5 @@
+package goodPackage;
+
 import java.util.*;
 public class FastCollinearPoints {
     private int numberOfSegments;
@@ -5,17 +7,19 @@ public class FastCollinearPoints {
     public FastCollinearPoints(Point[] points){
         Point[] copy;
         lineSegments = new ArrayList<LineSegment>();
-        for(int i = 0; i<points.length-1; i++){
+        for(int i = 0; i<points.length; i++){
             Point p = points[i];
             Comparator<Point> c = p.slopeOrder();
-            copy = points;
+            copy = Arrays.copyOf(points, points.length);
             Arrays.sort(copy, c);
-            for(int j = i+1; j<points.length-3; j++){
-                    double slopePlusOne = p.slopeTo(copy[j+1]);
-                    double slopePlusTwo = p.slopeTo(copy[j+2]);
-                    double slopePlusThree = p.slopeTo(copy[j+3]);
-                    if(slopePlusOne == slopePlusTwo &&
-                            slopePlusTwo == slopePlusThree){
+            for(int j = 0; j<points.length-2; j++){
+                    double slopeOne = p.slopeTo(copy[j+1]);
+                    double slopeTwo = p.slopeTo(copy[j+2]);
+                    double slopeThree = p.slopeTo(copy[j+3]);
+                    
+                    //TODO Fix this
+                    if(slopeOne == slopeTwo &&
+                            slopeTwo == slopeThree){
                         numberOfSegments++;
                         lineSegments.add(new LineSegment (p, copy[j+3]));
                     }
