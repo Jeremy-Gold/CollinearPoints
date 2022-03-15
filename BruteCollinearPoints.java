@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 
-public class BruteCollinearPoints {
 	private int numberOfSegments;
 	private ArrayList<LineSegment> segments;
 	
@@ -34,7 +32,7 @@ public class BruteCollinearPoints {
 							if(point2.compareTo(points[l]) > 0) {
 								point2 = points[l];
 							}
-							
+							System.out.println("Found:" + points[i] + ", " + points[j] + ", " + points[k] + ", " + points[l]);
 							segments.add(new LineSegment(point1, point2));
 						}
 					}
@@ -52,3 +50,4 @@ public class BruteCollinearPoints {
 		return segments;
 	}
 }
+
