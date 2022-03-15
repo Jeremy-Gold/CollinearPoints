@@ -1,3 +1,5 @@
+package goodPackage;
+
 import java.util.Comparator;
 
 import edu.princeton.cs.algs4.StdDraw;
@@ -13,15 +15,14 @@ public class Point implements Comparable<Point> {
     }
 
     public void draw() {
-    	for (int i = -50; i <= 50; i++) {
-    		for (int j = -50; j <= 50; j++) {
-    			StdDraw.point(x+i, y+j);
-    		}
-    	}
+		StdDraw.point(x, y);
     }
 
     public void drawTo(Point that) {
-        StdDraw.line(this.x, this.y, that.x, that.y);
+    	if(this.x != that.x || this.y != that.y) {
+    		StdDraw.line(this.x, this.y, that.x, that.y);
+    	}
+        
     }
 
     public double slopeTo(Point that) {
@@ -30,7 +31,10 @@ public class Point implements Comparable<Point> {
     	} else if (this.x == that.x) {
     		return Double.POSITIVE_INFINITY;
     	}
-        return((this.y - that.y)/(this.x - that.x));
+    	double num = 1.0*(this.y-that.y);
+    	double den = this.x-that.x;
+    	double result = num/den;
+        return result;
     }
     
     public int compareTo(Point that) {
@@ -57,7 +61,10 @@ public class Point implements Comparable<Point> {
 		public int compare(Point a, Point b) {
 			double slopeA = invoked.slopeTo(a);
 			double slopeB = invoked.slopeTo(b);
-			return Double.compare(slopeA, slopeB);	
+			if(slopeA != slopeB) {
+				return Double.compare(slopeA, slopeB);
+			} 
+			return a.compareTo(b);
 		}
     	
     }
