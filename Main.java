@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdDraw;
 
 public class Main {
 	private static Point[] points;
-	private static final int NUM_OF_POINTS = 400;
+	private static final int NUM_OF_POINTS = 300;
 	private static Random rng;
 	private static BruteCollinearPoints brute;
 	private static FastCollinearPoints fast;
@@ -19,12 +19,14 @@ public class Main {
          rng = new Random();
          scanner = new Scanner(System.in);
          points = new Point[NUM_OF_POINTS];
+         
          for (int i = 0; i < NUM_OF_POINTS; i++) {
-        	 int x = rng.nextInt(500) * 64;
-        	 int y = rng.nextInt(500) * 64;
+        	 int x = rng.nextInt(1000) * 32;
+        	 int y = rng.nextInt(1000) * 32;
         	 points[i] = new Point(x, y);
         	 points[i].draw();
          }
+
          brute = new BruteCollinearPoints(points);
          System.out.println("BCP says there are " + brute.numberOfSegments() + " sets of 4 collinear points.");
          System.out.println("Would you like to see them? Type \"yes\"");
@@ -45,4 +47,3 @@ public class Main {
          }
 	}
 }
-
