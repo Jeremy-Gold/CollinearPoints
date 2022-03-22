@@ -1,53 +1,58 @@
-
-	private int numberOfSegments;
-	private ArrayList<LineSegment> segments;
-	
-	//finds all line segments containing 4 points
-	public BruteCollinearPoints(Point[] points) {
-		numberOfSegments = 0;
-		segments = new ArrayList<LineSegment>();
-		for(int i = 0; i < points.length - 3; i++) {
-			for(int j = i + 1; j < points.length - 2; j++) {
-				for (int k = j + 1; k < points.length - 1; k++) {
-					for (int l = k + 1; l < points.length; l++) {
-						if(points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) && points[i].slopeTo(points[k]) == points[i].slopeTo(points[l])){
-							numberOfSegments++;
-							Point point1 = points[i];
-							Point point2 = points[i];
-							if(point1.compareTo(points[j]) < 0) {
-								point1 = points[i];
-							}
-							if(point1.compareTo(points[k]) < 0) {
-								point1 = points[k];
-							}
-							if(point1.compareTo(points[l]) < 0) {
-								point1 = points[l];
-							}
-							if(point2.compareTo(points[j]) > 0) {
-								point2 = points[j];
-							}
-							if(point2.compareTo(points[k]) > 0) {
-								point2 = points[k];
-							}
-							if(point2.compareTo(points[l]) > 0) {
-								point2 = points[l];
-							}
-							System.out.println("Found:" + points[i] + ", " + points[j] + ", " + points[k] + ", " + points[l]);
-							segments.add(new LineSegment(point1, point2));
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	public int numberOfSegments() {
-		return numberOfSegments;
-		
-	}
-	
-	public ArrayList<LineSegment> segments() {
-		return segments;
-	}
+import java.util.*;
+public class BruteCollinearPoints {
+    private int numberOfSegments;
+    private ArrayList<LineSegment> lineSegments;
+    public BruteCollinearPoints(Point[] points){
+        this.numberOfSegments = 0;
+        this.lineSegments = new ArrayList<LineSegment>();
+        for(int i = 0; i<points.length; i++){
+            for(int j = i+1; j<points.length; j++){
+                for(int k = j+1; k<points.length; k++){
+                    for(int l = k+1; l<points.length; l++){
+                        if(points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) &&
+                                points[i].slopeTo(points[k]) == points[i].slopeTo(points[l])){
+                            numberOfSegments++;
+                            lineSegments.add(new LineSegment(firstPoint(points[i], points[k], points[l], points[j]), lastPoint(points[i], points[k], points[l], points[j])));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public int numberOfSegments(){
+        return numberOfSegments;
+    }
+    public ArrayList<LineSegment> segments(){
+        return lineSegments;
+    }
+    public Point firstPoint(Point a, Point b, Point c, Point d){
+        if(a.compareTo(b)<0 && a.compareTo(c)<0 && a.compareTo(d)<0){
+            return a;
+        }
+        if(b.compareTo(a)<0 && b.compareTo(c)<0 && b.compareTo(d)<0){
+            return b;
+        }
+        if(c.compareTo(a)<0 && c.compareTo(b)<0 && c.compareTo(d)<0){
+            return c;
+        }
+        if(d.compareTo(a)<0 && d.compareTo(b)<0 && d.compareTo(c)<0){
+            return d;
+        }
+        return a;
+    }
+    public Point lastPoint(Point a, Point b, Point c, Point d){
+        if(a.compareTo(b)>0 && a.compareTo(c)>0 && a.compareTo(d)>0){
+            return a;
+        }
+        if(b.compareTo(a)>0 && b.compareTo(c)>0 && b.compareTo(d)>0){
+            return b;
+        }
+        if(c.compareTo(a)>0 && c.compareTo(b)>0 && c.compareTo(d)>0){
+            return c;
+        }
+        if(d.compareTo(a)>0 && d.compareTo(b)>0 && d.compareTo(c)>0){
+            return d;
+        }
+        return a;
+    }
 }
-
