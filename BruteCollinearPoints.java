@@ -9,10 +9,19 @@ public class BruteCollinearPoints {
             for(int j = i+1; j<points.length; j++){
                 for(int k = j+1; k<points.length; k++){
                     for(int l = k+1; l<points.length; l++){
+                        boolean alreadyThere = false;
                         if(points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) &&
                                 points[i].slopeTo(points[k]) == points[i].slopeTo(points[l])){
-                            numberOfSegments++;
-                            lineSegments.add(new LineSegment(firstPoint(points[i], points[k], points[l], points[j]), lastPoint(points[i], points[k], points[l], points[j])));
+                            LineSegment seg = new LineSegment(firstPoint(points[i], points[k], points[l], points[j]), lastPoint(points[i], points[k], points[l], points[j]));
+                            for(LineSegment s : lineSegments){
+                                if(s.equals(seg)){
+                                    alreadyThere = true;
+                                }
+                            }
+                            if(!alreadyThere){
+                                lineSegments.add(seg);
+                                numberOfSegments++;
+                            }
                         }
                     }
                 }
